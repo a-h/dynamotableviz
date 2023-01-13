@@ -346,7 +346,7 @@ if err != nil {
 						return err
 					}
 					// StringExpression
-					_, err = templBuffer.WriteString(templ.EscapeString(getValueOrEmptyString(t.SK, r)))
+					_, err = templBuffer.WriteString(templ.EscapeString(r.SK))
 					if err != nil {
 						return err
 					}
@@ -382,9 +382,9 @@ if err != nil {
 					}
 				}
 				// For
-				for _, v := range r {
+				for _, v := range r.Attributes {
 					// If
-					if !t.IsAttribute(v.Key) {
+					if !t.IsNamedAttribute(v.Key) {
 						// Element (standard)
 						_, err = templBuffer.WriteString("<td")
 						if err != nil {

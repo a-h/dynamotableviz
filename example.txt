@@ -1,0 +1,3 @@
+pk=users/1,sk=details,name=Albert Einstein,occupation=Scientist
+pk=users/2,sk=details,name=Bill Evans,occupation=Musician
+pk=users/2,sk=discography/1956/new_jazz_conceptions,title=New Jazz Conceptions,year=1956

@@ -76,7 +76,7 @@ templ table(t Data) {
 				<th class="jsontable-sk">{ t.SK }</th>
 			}
 			for _, th := range t.Attributes {
-					<th class="jsontable-key">{ th }</th>
+				<th class="jsontable-key">{ th }</th>
 			}
 			<th class="jsontable-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount) }>Attributes</th>
 		</tr>
@@ -87,13 +87,13 @@ templ table(t Data) {
 						<td class="jsontable-pk" rowspan={ fmt.Sprintf("%d", len(p.Rows)) }>{ p.PK }</td>
 					}
 					if t.SK != "" {
-						<td class="jsontable-sk">{ getValueOrEmptyString(t.SK, r) }</td>
+						<td class="jsontable-sk">{ r.SK }</td>
 					}
 					for _, attr := range t.Attributes {
 						<td class="jsontable-key">{ getValueOrEmptyString(attr, r) }</td>
 					}
-					for _, v := range r {
-						if !t.IsAttribute(v.Key) {
+					for _, v := range r.Attributes {
+						if !t.IsNamedAttribute(v.Key) {
 							<td class="jsontable-attr">{ v.String() }</td>
 						}
 					}
