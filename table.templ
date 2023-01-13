@@ -3,102 +3,104 @@ package main
 import "fmt"
 
 templ table(t Data) {
-	<style type="text/css">
-		.jsontable-table {
-			border-collapse: collapse;
-			margin: 25px 0;
-			font-size: 0.9em;
-			font-family: sans-serif;
-			min-width: 400px;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-pk {
-			background-color: #D6EAF8;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-pk {
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-sk {
-			background-color: #EBF5FB;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-sk {
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-key {
-			background-color: #E9F7EF;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-key {
-			text-align: center;
-			padding: 10px;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-attr {
-			background-color: #eeeeee;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-attr {
-			text-align: center;
-			padding: 10px;
-			border: solid 1px #dddddd;
-		}
-		tr.jsontable-even {
-			background-color: #ffffff;
-		}
-		tr.jsontable-odd {
-			background-color: #eeeeee;
-		}
-	</style>
-	<table class="jsontable-table">
+  if !t.OmitCSS {
+		<style type="text/css">
+			.dynamotableviz-table {
+				border-collapse: collapse;
+				margin: 25px 0;
+				font-size: 0.9em;
+				font-family: sans-serif;
+				min-width: 400px;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-pk {
+				background-color: #D6EAF8;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-pk {
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-sk {
+				background-color: #EBF5FB;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-sk {
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-key {
+				background-color: #E9F7EF;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-key {
+				text-align: center;
+				padding: 10px;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-attr {
+				background-color: #eeeeee;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-attr {
+				text-align: center;
+				padding: 10px;
+				border: solid 1px #dddddd;
+			}
+			tr.dynamotableviz-even {
+				background-color: #ffffff;
+			}
+			tr.dynamotableviz-odd {
+				background-color: #eeeeee;
+			}
+		</style>
+	}
+	<table class="dynamotableviz-table">
 		<tr>
-			<th class="jsontable-pk">{ t.PK }</th>
+			<th class="dynamotableviz-pk">{ t.PK }</th>
 			if t.SK != "" {
-				<th class="jsontable-sk">{ t.SK }</th>
+				<th class="dynamotableviz-sk">{ t.SK }</th>
 			}
 			for _, th := range t.Attributes {
-				<th class="jsontable-key">{ th }</th>
+				<th class="dynamotableviz-key">{ th }</th>
 			}
-			<th class="jsontable-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount) }>Attributes</th>
+			<th class="dynamotableviz-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount) }>Attributes</th>
 		</tr>
 		for partitionIndex, p := range t.Partitions {
 			for i, r := range p.Rows {
 				<tr class={ getRowClass(partitionIndex) }>
 					if i == 0 {
-						<td class="jsontable-pk" rowspan={ fmt.Sprintf("%d", len(p.Rows)) }>{ p.PK }</td>
+						<td class="dynamotableviz-pk" rowspan={ fmt.Sprintf("%d", len(p.Rows)) }>{ p.PK }</td>
 					}
 					if t.SK != "" {
-						<td class="jsontable-sk">{ r.SK }</td>
+						<td class="dynamotableviz-sk">{ r.SK }</td>
 					}
 					for _, attr := range t.Attributes {
-						<td class="jsontable-key">{ getValueOrEmptyString(attr, r) }</td>
+						<td class="dynamotableviz-key">{ getValueOrEmptyString(attr, r) }</td>
 					}
 					for _, v := range r.Attributes {
 						if !t.IsNamedAttribute(v.Key) {
-							<td class="jsontable-attr">{ v.String() }</td>
+							<td class="dynamotableviz-attr">{ v.String() }</td>
 						}
 					}
 					if t.GetAttributeCount(r) < t.MaxColCount {
-						<td class="jsontable-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount) }></td>
+						<td class="dynamotableviz-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount) }></td>
 					}
 				</tr>
 			}

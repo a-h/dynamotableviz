@@ -19,7 +19,8 @@ import (
 var pkFlag = flag.String("pk", "pk", "Name of the partition key attribute")
 var skFlag = flag.String("sk", "", "Name of the sort key attribute")
 var attrsFlag = flag.String("attrs", "gsi1,gsi2,gsi3,ttl", "Defines named attributes, which are then shown as a column")
-var fileFlag = flag.String("file", "", "Load the data from the file instead of stdin.")
+var fileFlag = flag.String("file", "", "Load the data from the file instead of stdin")
+var omitCSSFlag = flag.Bool("omit-css", false, "Set to true to disable the output of CSS")
 
 func main() {
 	flag.Parse()
@@ -64,6 +65,7 @@ func main() {
 
 	// Construct the view model for the table output.
 	var d Data
+	d.OmitCSS = *omitCSSFlag
 	allAttributes := strings.Split(*attrsFlag, ",")
 	if len(allAttributes) == 0 {
 		log.Fatalf("attributes flag set with empty value, possibly not formatted properly?")
@@ -152,6 +154,8 @@ type Data struct {
 	Partitions []Partition
 	// MaxColCount is the number of attributes in a single row.
 	MaxColCount int
+	// OmitCSS disables outputting the CSS element of the table.
+	OmitCSS bool
 }
 
 // IsNamedAttribute is used when drawing out the output table. Named attributes are

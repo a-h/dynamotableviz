@@ -24,94 +24,97 @@ func table(t Data) templ.Component {
 			var_1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		// If
+		if !t.OmitCSS {
 // RawElement
-		_, err = templBuffer.WriteString("<style")
-		if err != nil {
-			return err
-		}
-		// Element Attributes
-		_, err = templBuffer.WriteString(" type=\"text/css\"")
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString(">")
-		if err != nil {
-			return err
-		}
+			_, err = templBuffer.WriteString("<style")
+			if err != nil {
+				return err
+			}
+			// Element Attributes
+			_, err = templBuffer.WriteString(" type=\"text/css\"")
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString(">")
+			if err != nil {
+				return err
+			}
 // Text
 var_2 := `
-		.jsontable-table {
-			border-collapse: collapse;
-			margin: 25px 0;
-			font-size: 0.9em;
-			font-family: sans-serif;
-			min-width: 400px;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-pk {
-			background-color: #D6EAF8;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-pk {
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-sk {
-			background-color: #EBF5FB;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-sk {
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-key {
-			background-color: #E9F7EF;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-key {
-			text-align: center;
-			padding: 10px;
-			border: solid 1px #dddddd;
-		}
-		th.jsontable-attr {
-			background-color: #eeeeee;
-			text-align: center;
-			padding: 10px;
-			font-weight: bolder;
-			border: solid 1px #dddddd;
-		}
-		td.jsontable-attr {
-			text-align: center;
-			padding: 10px;
-			border: solid 1px #dddddd;
-		}
-		tr.jsontable-even {
-			background-color: #ffffff;
-		}
-		tr.jsontable-odd {
-			background-color: #eeeeee;
-		}
-	`
+			.dynamotableviz-table {
+				border-collapse: collapse;
+				margin: 25px 0;
+				font-size: 0.9em;
+				font-family: sans-serif;
+				min-width: 400px;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-pk {
+				background-color: #D6EAF8;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-pk {
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-sk {
+				background-color: #EBF5FB;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-sk {
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-key {
+				background-color: #E9F7EF;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-key {
+				text-align: center;
+				padding: 10px;
+				border: solid 1px #dddddd;
+			}
+			th.dynamotableviz-attr {
+				background-color: #eeeeee;
+				text-align: center;
+				padding: 10px;
+				font-weight: bolder;
+				border: solid 1px #dddddd;
+			}
+			td.dynamotableviz-attr {
+				text-align: center;
+				padding: 10px;
+				border: solid 1px #dddddd;
+			}
+			tr.dynamotableviz-even {
+				background-color: #ffffff;
+			}
+			tr.dynamotableviz-odd {
+				background-color: #eeeeee;
+			}
+		`
 _, err = templBuffer.WriteString(var_2)
 if err != nil {
 	return err
 }
-		_, err = templBuffer.WriteString("</style>")
-		if err != nil {
-			return err
+			_, err = templBuffer.WriteString("</style>")
+			if err != nil {
+				return err
+			}
 		}
 		// Element (standard)
 		_, err = templBuffer.WriteString("<table")
@@ -119,7 +122,7 @@ if err != nil {
 			return err
 		}
 		// Element Attributes
-		_, err = templBuffer.WriteString(" class=\"jsontable-table\"")
+		_, err = templBuffer.WriteString(" class=\"dynamotableviz-table\"")
 		if err != nil {
 			return err
 		}
@@ -138,7 +141,7 @@ if err != nil {
 			return err
 		}
 		// Element Attributes
-		_, err = templBuffer.WriteString(" class=\"jsontable-pk\"")
+		_, err = templBuffer.WriteString(" class=\"dynamotableviz-pk\"")
 		if err != nil {
 			return err
 		}
@@ -163,7 +166,7 @@ if err != nil {
 				return err
 			}
 			// Element Attributes
-			_, err = templBuffer.WriteString(" class=\"jsontable-sk\"")
+			_, err = templBuffer.WriteString(" class=\"dynamotableviz-sk\"")
 			if err != nil {
 				return err
 			}
@@ -189,7 +192,7 @@ if err != nil {
 				return err
 			}
 			// Element Attributes
-			_, err = templBuffer.WriteString(" class=\"jsontable-key\"")
+			_, err = templBuffer.WriteString(" class=\"dynamotableviz-key\"")
 			if err != nil {
 				return err
 			}
@@ -213,7 +216,7 @@ if err != nil {
 			return err
 		}
 		// Element Attributes
-		_, err = templBuffer.WriteString(" class=\"jsontable-attr\"")
+		_, err = templBuffer.WriteString(" class=\"dynamotableviz-attr\"")
 		if err != nil {
 			return err
 		}
@@ -295,7 +298,7 @@ if err != nil {
 						return err
 					}
 					// Element Attributes
-					_, err = templBuffer.WriteString(" class=\"jsontable-pk\"")
+					_, err = templBuffer.WriteString(" class=\"dynamotableviz-pk\"")
 					if err != nil {
 						return err
 					}
@@ -337,7 +340,7 @@ if err != nil {
 						return err
 					}
 					// Element Attributes
-					_, err = templBuffer.WriteString(" class=\"jsontable-sk\"")
+					_, err = templBuffer.WriteString(" class=\"dynamotableviz-sk\"")
 					if err != nil {
 						return err
 					}
@@ -363,7 +366,7 @@ if err != nil {
 						return err
 					}
 					// Element Attributes
-					_, err = templBuffer.WriteString(" class=\"jsontable-key\"")
+					_, err = templBuffer.WriteString(" class=\"dynamotableviz-key\"")
 					if err != nil {
 						return err
 					}
@@ -391,7 +394,7 @@ if err != nil {
 							return err
 						}
 						// Element Attributes
-						_, err = templBuffer.WriteString(" class=\"jsontable-attr\"")
+						_, err = templBuffer.WriteString(" class=\"dynamotableviz-attr\"")
 						if err != nil {
 							return err
 						}
@@ -418,7 +421,7 @@ if err != nil {
 						return err
 					}
 					// Element Attributes
-					_, err = templBuffer.WriteString(" class=\"jsontable-attr\"")
+					_, err = templBuffer.WriteString(" class=\"dynamotableviz-attr\"")
 					if err != nil {
 						return err
 					}
