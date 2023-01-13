@@ -414,7 +414,7 @@ if err != nil {
 					}
 				}
 				// If
-				if t.GetAttributeCount(r) < t.MaxColCount {
+				if t.GetAttributeCount(r) < t.MaxColCount  {
 					// Element (standard)
 					_, err = templBuffer.WriteString("<td")
 					if err != nil {
@@ -433,7 +433,7 @@ if err != nil {
 					if err != nil {
 						return err
 					}
-					_, err = templBuffer.WriteString(templ.EscapeString(fmt.Sprintf("%d", t.MaxColCount)))
+					_, err = templBuffer.WriteString(templ.EscapeString(fmt.Sprintf("%d", t.MaxColCount - t.GetAttributeCount(r))))
 					if err != nil {
 						return err
 					}

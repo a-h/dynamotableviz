@@ -74,9 +74,6 @@ func main() {
 	d.SK = *skFlag
 	// Only render named attributes that include some data.
 	d.Attributes = getUsedAttributes(allAttributes, rows)
-	// Configure maximum colspan values to ensure that the table has a consistent number of
-	// columns rendered in each row.
-	d.MaxColCount = getMaxColCount(rows)
 
 	// pkToIndexMap maps the partition key value to the index in the list of
 	// partitions. Each row is added to a partition.
@@ -113,6 +110,10 @@ func main() {
 		})
 	}
 
+	// Configure maximum colspan values to ensure that the table has a consistent number of
+	// columns rendered in each row.
+	d.MaxColCount = getMaxColCount(d)
+
 	// Render the HTML to stdout.
 	table(d).Render(context.Background(), os.Stdout)
 }
@@ -133,10 +134,12 @@ func getUsedAttributes(attrs []string, rows [][]value.Value) (filtered []string)
 	return filtered
 }
 
-func getMaxColCount(rows [][]value.Value) (count int) {
-	for _, r := range rows {
-		if len(r) > count {
-			count = len(r)
+func getMaxColCount(data Data) (count int) {
+	for _, p := range data.Partitions {
+		for _, r := range p.Rows {
+			if ac := data.GetAttributeCount(r); ac > count {
+				count = ac
+			}
 		}
 	}
 	return
@@ -178,7 +181,7 @@ func (d Data) IsNamedAttribute(key string) bool {
 // GetAttributeCount gets the count of all non-key, non-named attributes in the row.
 func (d Data) GetAttributeCount(row Row) (count int) {
 	for _, v := range row.Attributes {
-		if d.IsNamedAttribute(v.Value) {
+		if d.IsNamedAttribute(v.Key) {
 			continue
 		}
 		count++
@@ -211,7 +214,7 @@ func getValueOrEmptyString(key string, r Row) string {
 
 func getRowClass(partitionIndex int) templ.CSSClasses {
 	if partitionIndex%2 == 0 {
-		return templ.CSSClasses{templ.ConstantCSSClass("jsontable-even")}
+		return templ.CSSClasses{templ.ConstantCSSClass("dynamotableviz-even")}
 	}
-	return templ.CSSClasses{templ.ConstantCSSClass("jsontable-odd")}
+	return templ.CSSClasses{templ.ConstantCSSClass("dynamotableviz-odd")}
 }

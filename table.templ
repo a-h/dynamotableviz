@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 templ table(t Data) {
-  if !t.OmitCSS {
+	if !t.OmitCSS {
 		<style type="text/css">
 			.dynamotableviz-table {
 				border-collapse: collapse;
@@ -99,8 +99,8 @@ templ table(t Data) {
 							<td class="dynamotableviz-attr">{ v.String() }</td>
 						}
 					}
-					if t.GetAttributeCount(r) < t.MaxColCount {
-						<td class="dynamotableviz-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount) }></td>
+					if t.GetAttributeCount(r) < t.MaxColCount  {
+						<td class="dynamotableviz-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount - t.GetAttributeCount(r)) }></td>
 					}
 				</tr>
 			}
