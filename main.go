@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/a-h/jsontable/value"
+	"github.com/a-h/dynamotableviz/value"
 	"github.com/a-h/templ"
 )
 

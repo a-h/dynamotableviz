@@ -3,7 +3,7 @@ package value_test
 import (
 	"testing"
 
-	"github.com/a-h/jsontable/value"
+	"github.com/a-h/dynamotableviz/value"
 	"github.com/a-h/parse"
 	"github.com/google/go-cmp/cmp"
 )
