@@ -131,6 +131,11 @@ func TestParserErrors(t *testing.T) {
 			input:    "b=,c=",
 			expected: value.ErrParseValue{Position: parse.Position{Index: 2, Line: 0, Col: 2}},
 		},
+		{
+			name:     "unclosed quotes are not allowed",
+			input:    `b="unclosed,c=data`,
+			expected: value.ErrUnclosedQuote{Position: parse.Position{Index: 2, Line: 0, Col: 2}},
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {

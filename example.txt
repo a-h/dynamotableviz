@@ -1,3 +1,4 @@
-pk=users/1,sk=details,name=Albert Einstein,occupation=Scientist
-pk=users/2,sk=details,name=Bill Evans,occupation=Musician
-pk=users/2,sk=discography/1956/new_jazz_conceptions,title=New Jazz Conceptions,year=1956
+pk=users/1,sk=details,name=Albert Einstein,gsi1=occupation/Scientist,occupation=Scientist
+pk=users/2,sk=details,name=Bill Evans,gsi1=occupation/Musician,occupation=Musician
+pk=users/2,sk=discography/1956/new_jazz_conceptions,gsi1=discography/year/1956,title=New Jazz Conceptions,year=1956
+pk=users/2,sk=discography/1959/everybody_digs_bill_evans,gsi1=discography/year/1959,title=Everybody Digs Bill Evans,year=1959

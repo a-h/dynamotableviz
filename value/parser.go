@@ -27,12 +27,12 @@ func (v Value) String() string {
 type quotedStringParser struct{}
 
 func (p quotedStringParser) Parse(in parse.Input) (match string, ok bool, err error) {
-	start := in.Index()
+	start := in.Position()
 	// Start with a quote.
 	_, ok, err = doubleQuote.Parse(in)
 	if err != nil || !ok {
 		// No match, so rewind.
-		in.Seek(start)
+		in.Seek(start.Index)
 		return
 	}
 	// Grab the contents.
@@ -66,7 +66,8 @@ func (p quotedStringParser) Parse(in parse.Input) (match string, ok bool, err er
 		}
 		// If we haven't gotten a match, we must have reached the end of the file.
 		// Without closing the string.
-		err = fmt.Errorf("unterminated quoted string from %v to %v", in.PositionAt(start), in.Position())
+		err = ErrUnclosedQuote{start}
+		return
 	}
 	match = sb.String()
 	return
@@ -94,6 +95,14 @@ type ErrParseValue struct {
 
 func (e ErrParseValue) Error() string {
 	return fmt.Sprintf("parse error: expected value not found at line %d, col %d (index %d)", e.Position.Line, e.Position.Col, e.Position.Index)
+}
+
+type ErrUnclosedQuote struct {
+	Position parse.Position
+}
+
+func (e ErrUnclosedQuote) Error() string {
+	return fmt.Sprintf("parse error: quote not closed at line %d, col %d (index %d)", e.Position.Line, e.Position.Col, e.Position.Index)
 }
 
 var quotedString = parse.Parser[string](quotedStringParser{})
