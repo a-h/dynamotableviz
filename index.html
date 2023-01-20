@@ -1,10 +1,4 @@
-package main
-
-import "fmt"
-
-templ table(t Data) {
-	if !t.OmitCSS {
-		<style type="text/css">
+<style type="text/css">
 			.dynamotableviz-table {
 				border-collapse: collapse;
 				margin: 25px 0;
@@ -80,42 +74,4 @@ templ table(t Data) {
 				background-color: #eeeeee;
 				color: #000000;
 			}
-		</style>
-	}
-	<table class="dynamotableviz-table">
-		<tr>
-			<th class="dynamotableviz-pk">{ t.PK }</th>
-			if t.SK != "" {
-				<th class="dynamotableviz-sk">{ t.SK }</th>
-			}
-			for _, th := range t.Attributes {
-				<th class="dynamotableviz-key">{ th }</th>
-			}
-			<th class="dynamotableviz-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount) }>Attributes</th>
-		</tr>
-		for partitionIndex, p := range t.Partitions {
-			for i, r := range p.Rows {
-				<tr class={ getRowClass(partitionIndex) }>
-					if i == 0 {
-						<td class="dynamotableviz-pk" rowspan={ fmt.Sprintf("%d", len(p.Rows)) }>{ p.PK }</td>
-					}
-					if t.SK != "" {
-						<td class="dynamotableviz-sk">{ r.SK }</td>
-					}
-					for _, attr := range t.Attributes {
-						<td class="dynamotableviz-key">{ getValueOrEmptyString(attr, r) }</td>
-					}
-					for _, v := range r.Attributes {
-						if !t.IsNamedAttribute(v.Key) {
-							<td class="dynamotableviz-attr">{ v.String() }</td>
-						}
-					}
-					if t.GetAttributeCount(r) < t.MaxColCount {
-						<td class="dynamotableviz-attr" colspan={ fmt.Sprintf("%d", t.MaxColCount - t.GetAttributeCount(r)) }></td>
-					}
-				</tr>
-			}
-		}
-	</table>
-}
-
+		</style><table class="dynamotableviz-table"><tr><th class="dynamotableviz-pk">pk</th><th class="dynamotableviz-sk">sk</th><th class="dynamotableviz-key">gsi1</th><th class="dynamotableviz-attr" colspan="2">Attributes</th></tr><tr class="dynamotableviz-even"><td class="dynamotableviz-pk" rowspan="1">users/1</td><td class="dynamotableviz-sk">details</td><td class="dynamotableviz-key">occupation/Scientist</td><td class="dynamotableviz-attr">name=&#34;Albert Einstein&#34;</td><td class="dynamotableviz-attr">occupation=&#34;Scientist&#34;</td></tr><tr class="dynamotableviz-odd"><td class="dynamotableviz-pk" rowspan="3">users/2</td><td class="dynamotableviz-sk">details</td><td class="dynamotableviz-key">occupation/Musician</td><td class="dynamotableviz-attr">name=&#34;Bill Evans&#34;</td><td class="dynamotableviz-attr">occupation=&#34;Musician&#34;</td></tr><tr class="dynamotableviz-odd"><td class="dynamotableviz-sk">discography/1956/new_jazz_conceptions</td><td class="dynamotableviz-key">discography/year/1956</td><td class="dynamotableviz-attr">title=&#34;New Jazz Conceptions&#34;</td><td class="dynamotableviz-attr">year=&#34;1956&#34;</td></tr><tr class="dynamotableviz-odd"><td class="dynamotableviz-sk">discography/1959/everybody_digs_bill_evans</td><td class="dynamotableviz-key">discography/year/1959</td><td class="dynamotableviz-attr">title=&#34;Everybody Digs Bill Evans&#34;</td><td class="dynamotableviz-attr">year=&#34;1959&#34;</td></tr></table>
