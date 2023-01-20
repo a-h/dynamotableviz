@@ -28,7 +28,7 @@ Download the latest release for your system from [https://github.com/a-h/dynamot
 
 If you have Go 1.19+ installed:
 
-```go
+```
 go install github.com/a-h/dynamotableviz@latest
 ```
 
