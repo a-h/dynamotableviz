@@ -18,6 +18,20 @@ pk=users/2,sk=discography/1956/new_jazz_conceptions,title=New Jazz Conceptions,y
 
 ![Web browser rendering of output](screenshot.png)
 
+## Installation
+
+### Binaries
+
+Download the latest release for your system from [https://github.com/a-h/dynamotableviz/releases](https://github.com/a-h/dynamotableviz/releases)
+
+### Source
+
+If you have Go 1.19+ installed:
+
+```go
+go install github.com/a-h/dynamotableviz@latest
+```
+
 ## Usage
 
 ```
