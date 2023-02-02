@@ -106,7 +106,7 @@ func main() {
 	// Sort the partitions with the sort key.
 	for _, p := range d.Partitions {
 		sort.Slice(p.Rows, func(i, j int) bool {
-			return strings.Compare(p.Rows[i].PK, p.Rows[j].PK) < 0
+			return strings.Compare(p.Rows[i].SK, p.Rows[j].SK) < 0
 		})
 	}
 
