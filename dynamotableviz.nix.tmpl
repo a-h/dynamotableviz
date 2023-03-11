@@ -1,0 +1,13 @@
+{ config, lib, pkgs, fetchFromGitHub, ... }:
+
+pkgs.buildGoModule rec {
+  pname = "dynamotableviz";
+  version = "__VERSION__";
+  src = pkgs.fetchFromGitHub {
+    owner = "a-h";
+    repo = "dynamotableviz";
+    rev = version;
+    sha256 = lib.fakeSha256;
+  };
+  vendorSha256 = lib.fakeSha256;
+}

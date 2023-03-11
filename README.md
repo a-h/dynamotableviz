@@ -68,3 +68,12 @@ firefox --headless --screenshot file:///home/user/github.com/a-h/dynamotableviz/
 
 If you want to customise how it looks, you can use a site generator like Hugo, or automate the merging of the CLI output with custom CSS and HTML.
 
+## Tasks
+
+### update-nix
+
+Updates Nix flake.
+
+```
+sh ./update-nix.sh
+```
