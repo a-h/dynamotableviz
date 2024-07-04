@@ -9,5 +9,5 @@ pkgs.buildGoModule rec {
     rev = version;
     sha256 = "8dT4winr0I1h5EnREcmG5CMyvbKOYkBiyc5AJ2hX2Ew=";
   };
-  vendorSha256 = "BPsosNyuW0PBY3PZGXyNuiQ8pczJ6/9hcYnKtpQKzjo=";
+  vendorHash = "sha256-BPsosNyuW0PBY3PZGXyNuiQ8pczJ6/9hcYnKtpQKzjo=";
 }

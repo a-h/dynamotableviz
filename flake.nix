@@ -1,20 +1,21 @@
 {
   inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/release-24.05";
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-      let 
+      let
         pkgs = import nixpkgs {
           system = system;
         };
-        dynamotableviz = pkgs.callPackage ./dynamotableviz.nix {};
+        dynamotableviz = pkgs.callPackage ./dynamotableviz.nix { };
       in
       {
         defaultPackage = dynamotableviz;
-        packages = { 
+        packages = {
           dynamotableviz = dynamotableviz;
         };
         devShells = {
